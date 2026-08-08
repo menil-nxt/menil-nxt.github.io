@@ -656,6 +656,14 @@ span{
         flex: 1 1 100%;
     }
 
+    .portfolio-info{
+        padding: 2.5rem 1.8rem 3rem;
+    }
+
+    .portfolio-info ul{
+        padding-left: 2rem;
+    }
+
     .about-education-item{
         text-align: left;
     }
@@ -706,7 +714,6 @@ span{
         font-size: 3.6rem;
     }
 
-    .portfolio-info,
     .contact-info-box{
         padding-left: 0;
     }
