@@ -9,6 +9,31 @@
       content="Menil Jotaniya — Software Developer specializing in React.js, JavaScript and modern web development."
     />
 
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Menil Jotaniya | Software Developer" />
+    <meta
+      property="og:description"
+      content="Software Developer specializing in React.js and the MERN stack."
+    />
+    <meta
+      property="og:image"
+      content="https://menil-nxt.github.io/img/profile.webp"
+    />
+    <meta property="og:url" content="https://menil-nxt.github.io/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Menil Jotaniya | Software Developer" />
+    <meta
+      name="twitter:description"
+      content="Software Developer specializing in React.js and the MERN stack."
+    />
+    <meta
+      name="twitter:image"
+      content="https://menil-nxt.github.io/img/profile.webp"
+    />
+
     <!-- font awsome -->
     <link
       rel="stylesheet"
@@ -31,16 +56,19 @@
     <header class="header">
       <a href="#" class="logo">Menil Jotaniya</a>
 
-      <i class="fa-solid fa-bars" id="menu-icon"></i>
-
       <nav class="navbar">
         <a href="#home" class="active">Home</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#service">Services</a>
-        <a href="#Portfolio">Portfolio</a>
+        <a href="#Portfolio">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
+
+      <div class="nav-right">
+        <i class="fa-solid fa-moon" id="theme-toggle"></i>
+        <i class="fa-solid fa-bars" id="menu-icon"></i>
+      </div>
     </header>
 
     <!-- home page design -->
@@ -77,14 +105,20 @@
         <a href="/Menil-Resume.pdf" class="btn" download>Download CV</a>
       </div>
       <div class="home-img" data-aos="fade-left">
-        <img src="/img/profile.png" alt="" />
+        <picture>
+          <source srcset="/img/profile.webp" type="image/webp" />
+          <img src="/img/profile.png" alt="Menil Jotaniya" />
+        </picture>
       </div>
     </section>
 
     <!-- About Page Design -->
     <section class="about" id="about">
       <div class="about-img" data-aos="fade-right">
-        <img src="/img/profile.png" alt="Profile Picture" />
+        <picture>
+          <source srcset="/img/profile.webp" type="image/webp" />
+          <img src="/img/profile.png" alt="Profile Picture" loading="lazy" />
+        </picture>
       </div>
       <div class="about-content" data-aos="fade-left">
         <h2 class="heading">About <span>Me</span>!</h2>
@@ -259,6 +293,14 @@
               >
                 <i class="fa-brands fa-github"></i> Code
               </a>
+              <a
+                href="#"
+                target="_blank"
+                class="btn"
+                title="Replace with Live URL"
+              >
+                <i class="fa-solid fa-eye"></i> Live Demo
+              </a>
             </div>
           </div>
         </div>
@@ -296,6 +338,14 @@
                 class="btn"
               >
                 <i class="fa-brands fa-github"></i> Code
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                class="btn"
+                title="Replace with Live URL"
+              >
+                <i class="fa-solid fa-eye"></i> Live Demo
               </a>
             </div>
           </div>
@@ -397,6 +447,29 @@
       AOS.init({
         duration: 1000,
         once: true,
+      });
+
+      // Theme toggle functionality
+      const themeToggle = document.getElementById("theme-toggle");
+
+      // Check for saved user preference, if any, on load of the website
+      if (localStorage.getItem("theme") === "light") {
+        document.body.classList.add("light-mode");
+        themeToggle.classList.remove("fa-moon");
+        themeToggle.classList.add("fa-sun");
+      }
+
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        if (document.body.classList.contains("light-mode")) {
+          themeToggle.classList.remove("fa-moon");
+          themeToggle.classList.add("fa-sun");
+          localStorage.setItem("theme", "light");
+        } else {
+          themeToggle.classList.remove("fa-sun");
+          themeToggle.classList.add("fa-moon");
+          localStorage.setItem("theme", "dark");
+        }
       });
 
       const menuIcon = document.getElementById("menu-icon");
