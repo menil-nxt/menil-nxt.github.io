@@ -76,7 +76,7 @@
       <div class="home-content" data-aos="fade-right">
         <h3>Hello, It's Me</h3>
         <h1>Menil Jotaniya</h1>
-        <h3>And I'm a <span>Software Developer</span></h3>
+        <h3>And I'm a <span class="typing-text" id="typing-text"></span></h3>
         <p>
           Software Developer specializing in React.js and the MERN stack,
           focused on building scalable, high-performance web applications backed
@@ -589,6 +589,81 @@
           submitBtn.textContent = originalBtnText;
         }
       });
+
+      // ==================== Typing effect ====================
+      const typingEl = document.getElementById("typing-text");
+      const typingWords = [
+        "Software Developer",
+        "React.js Developer",
+        "MERN Stack Developer",
+        "Frontend Developer",
+      ];
+
+      if (typingEl && !prefersReducedMotion) {
+        let wordIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+
+        const typeLoop = () => {
+          const currentWord = typingWords[wordIndex];
+
+          if (!deleting) {
+            charIndex++;
+            typingEl.textContent = currentWord.slice(0, charIndex);
+            if (charIndex === currentWord.length) {
+              deleting = true;
+              setTimeout(typeLoop, 1600);
+              return;
+            }
+          } else {
+            charIndex--;
+            typingEl.textContent = currentWord.slice(0, charIndex);
+            if (charIndex === 0) {
+              deleting = false;
+              wordIndex = (wordIndex + 1) % typingWords.length;
+            }
+          }
+
+          setTimeout(typeLoop, deleting ? 45 : 90);
+        };
+
+        typeLoop();
+      } else if (typingEl) {
+        typingEl.textContent = typingWords[0];
+      }
+
+      // ==================== Magnetic buttons ====================
+      if (!prefersReducedMotion && supportsHover) {
+        document.querySelectorAll(".btn").forEach((btn) => {
+          const strength = 0.35;
+
+          btn.addEventListener("mousemove", (e) => {
+            const rect = btn.getBoundingClientRect();
+            const relX = e.clientX - rect.left - rect.width / 2;
+            const relY = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${relX * strength}px, ${relY * strength}px)`;
+          });
+
+          btn.addEventListener("mouseleave", () => {
+            btn.style.transform = "translate(0, 0)";
+          });
+        });
+      }
+
+      // ==================== Spotlight glow on cards ====================
+      if (supportsHover) {
+        const glowCards = document.querySelectorAll(
+          ".skills-box, .service-container .services-box, .portfolio-box",
+        );
+
+        glowCards.forEach((card) => {
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
+            card.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
+          });
+        });
+      }
     </script>
   </body>
 </html>
